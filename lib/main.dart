@@ -1,3 +1,4 @@
+import 'package:cbhsapp/screens/loginScreen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.main),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
