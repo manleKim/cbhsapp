@@ -1,3 +1,4 @@
+import 'package:cbhsapp/main.dart';
 import 'package:cbhsapp/services/login.dart';
 import 'package:flutter/material.dart';
 
@@ -53,8 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final htmlCode = await Login.postLogin(academicNumber, password);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => MyWidget(string: htmlCode)));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
     } catch (e) {
       print(e.toString());
     }
