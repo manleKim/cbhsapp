@@ -1,6 +1,8 @@
-import 'package:cbhsapp/main.dart';
+import 'package:cbhsapp/provider/user_provider.dart';
+import 'package:cbhsapp/screens/home_screen.dart';
 import 'package:cbhsapp/services/login.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -52,25 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
     String academicNumber = _academicNumberController.text.trim();
     String password = _passwordController.text.trim();
 
+    BuildContext currentContext = context;
+
     try {
-      final htmlCode = await Login.postLogin(academicNumber, password);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      final qrData = await Login.postLogin(academicNumber, password);
+      currentContext.read<UserProvider>().setUser(academicNumber, password);
+      currentContext.read<UserProvider>().setQRdata(qrData);
+      Navigator.push(currentContext,
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
     } catch (e) {
       print(e.toString());
     }
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  final String string;
-  const MyWidget({super.key, required this.string});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(child: Text(string)),
-    );
   }
 }
