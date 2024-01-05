@@ -1,3 +1,4 @@
+import 'package:cbhsapp/screens/meal_screen.dart';
 import 'package:cbhsapp/screens/qr_screen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPage = 0;
   static final List<Widget> _pages = <Widget>[
     const QrCodeScreen(),
+    const MealScreen(),
   ];
 
   void _onItemTapped(int index) {
