@@ -1,8 +1,11 @@
-import 'package:cbhsapp/screens/loginScreen.dart';
+import 'package:cbhsapp/screens/login_screen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'assets/config/.env');
   runApp(const App());
 }
 
@@ -36,4 +39,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
