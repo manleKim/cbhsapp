@@ -26,9 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('홈페이지'),
-      ),
       body: Center(
         child: _pages.elementAt(_selectedPage),
       ),
