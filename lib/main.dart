@@ -1,3 +1,4 @@
+import 'package:cbhsapp/provider/meal_provider.dart';
 import 'package:cbhsapp/provider/user_provider.dart';
 import 'package:cbhsapp/screens/login_screen.dart';
 import 'package:cbhsapp/style.dart';
@@ -18,7 +19,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => UserProvider())
+        ChangeNotifierProvider(
+            create: (BuildContext context) => UserProvider()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => MealProvider()),
       ],
       child: MaterialApp(
         title: 'CBHS Dormitory App',

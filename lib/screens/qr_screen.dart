@@ -13,7 +13,7 @@ class QrCodeScreen extends StatefulWidget {
 class _QrCodeScreenState extends State<QrCodeScreen> {
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    //UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       body: Consumer<UserProvider>(
