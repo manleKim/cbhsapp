@@ -148,4 +148,8 @@ doc/api/
 # dotenv environment variables file
 .env
 
+### 개인적 private
+/lib/xmls/
+/lib/services/
+
 # End of https://www.toptal.com/developers/gitignore/api/dart
