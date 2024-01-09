@@ -1,3 +1,4 @@
+import 'package:cbhsapp/provider/user_manage_provider.dart';
 import 'package:cbhsapp/provider/user_provider.dart';
 import 'package:cbhsapp/screens/home_screen.dart';
 import 'package:cbhsapp/services/login.dart';
@@ -60,6 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
       final qrData = await Login.postLogin(academicNumber, password);
       currentContext.read<UserProvider>().setUser(academicNumber, password);
       currentContext.read<UserProvider>().setQRdata(qrData);
+      currentContext
+          .read<UserManageProvider>()
+          .setUser(academicNumber, password);
+      currentContext.read<UserManageProvider>().getStudentNumber();
       Navigator.push(currentContext,
           MaterialPageRoute(builder: (context) => const HomeScreen()));
     } catch (e) {

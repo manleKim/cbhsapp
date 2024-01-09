@@ -1,10 +1,13 @@
+import 'package:cbhsapp/xmls/xmls.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart';
 
 class Login {
   static final RegExp regex = RegExp(r"makeCode\('(\d+)'\)");
   static final String baseURL = (dotenv.env['LOGIN_URL'] as String);
   static final String postLoginURL = '$baseURL/employee/loginProc.jsp';
+  static final String dormitoryURL = (dotenv.env['DORMITORY_URL'] as String);
 
   //로그인
   static Future<String> postLogin(
@@ -55,6 +58,32 @@ class Login {
     );
     return response.body;
   }
+
+  //외박 및 다른 서비스를 위한 로그인
+  static Future<Map<String, dynamic>> postServiceLogin(
+      String academicNumber, String password) async {
+    final xmlBody = getXml(academicNumber, password);
+    final response = await http.post(
+      Uri.parse('$dormitoryURL/cbhsLoginStd.do'),
+      headers: {
+        'content-type': 'text/xml',
+      },
+      body: xmlBody,
+    );
+
+    if (response.statusCode != 200) {
+      //로그인 오류
+      const String errorMessage = '유저관리 로그인 오류';
+      throw Exception(errorMessage);
+    }
+
+    final xmlResponse = XmlDocument.parse(response.body);
+
+    final studentNumber = extractValue(xmlResponse, 'IDX');
+    final studentName = extractValue(xmlResponse, 'RESCHR_NM');
+
+    return {'studentNumber': studentNumber, 'studentName': studentName};
+  }
 }
 
 Map<String, String> parseCookies(String cookiesString) {
@@ -69,4 +98,12 @@ Map<String, String> parseCookies(String cookiesString) {
   });
 
   return cookies;
+}
+
+String extractValue(XmlDocument xmlDocument, String columnName) {
+  final columnElement = xmlDocument
+      .findAllElements('Col')
+      .firstWhere((element) => element.getAttribute('id') == columnName);
+
+  return columnElement.innerText;
 }
