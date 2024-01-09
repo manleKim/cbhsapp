@@ -71,6 +71,11 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               );
             },
           ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              child: const Text('로그아웃')),
         ],
       ),
     );

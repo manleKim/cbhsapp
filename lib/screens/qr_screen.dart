@@ -35,6 +35,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
               },
               icon: const Icon(Icons.account_circle_outlined)),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: Consumer<UserProvider>(
         builder: (context, userProvider, child) {

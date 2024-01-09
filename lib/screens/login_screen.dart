@@ -67,6 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
       currentContext.read<UserManageProvider>().getStudentInfo();
       Navigator.push(currentContext,
           MaterialPageRoute(builder: (context) => const HomeScreen()));
+      _academicNumberController.clear();
+      _passwordController.clear();
     } catch (e) {
       print(e.toString());
     }

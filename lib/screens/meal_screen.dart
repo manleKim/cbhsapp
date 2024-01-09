@@ -22,6 +22,10 @@ class _MealScreenState extends State<MealScreen> {
     final mealProvider = Provider.of<MealProvider>(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('학사 식단'),
+        automaticallyImplyLeading: false,
+      ),
       body: mealProvider.thisWeekMeals.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
