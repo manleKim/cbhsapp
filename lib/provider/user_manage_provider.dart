@@ -1,6 +1,6 @@
 import 'package:cbhsapp/models/reassess_element_model.dart';
 import 'package:cbhsapp/services/dormitory_service.dart';
-import 'package:cbhsapp/services/login.dart';
+import 'package:cbhsapp/services/login_service.dart';
 import 'package:flutter/material.dart';
 
 class UserManageProvider extends ChangeNotifier {
@@ -29,9 +29,10 @@ class UserManageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getStudentNumber() async {
+  Future<void> getStudentInfo() async {
     try {
-      final info = await Login.postServiceLogin(_academicNumber, _password);
+      final info =
+          await LoginService.postServiceLogin(_academicNumber, _password);
       _studentName = info['studentName'];
       _studentNumber = info['studentNumber'];
     } catch (e) {

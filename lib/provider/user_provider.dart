@@ -1,4 +1,4 @@
-import 'package:cbhsapp/services/login.dart';
+import 'package:cbhsapp/services/login_service.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -23,7 +23,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> refreshQRdata() async {
     try {
-      final qrData = await Login.postLogin(academicNumber, password);
+      final qrData = await LoginService.postLogin(academicNumber, password);
       setQRdata(qrData);
     } catch (e) {
       print(e.toString());
