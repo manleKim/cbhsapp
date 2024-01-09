@@ -18,12 +18,12 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   void initState() {
     super.initState();
     Provider.of<UserManageProvider>(context, listen: false).refreshSession();
-    Provider.of<UserManageProvider>(context, listen: false)
-        .refreshReassessList();
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserManageProvider>(context, listen: false)
+        .refreshReassessList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('프로필'),
