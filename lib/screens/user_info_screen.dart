@@ -1,4 +1,6 @@
+import 'package:cbhsapp/models/reassess_element_model.dart';
 import 'package:cbhsapp/provider/user_manage_provider.dart';
+import 'package:cbhsapp/services/dormitory_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +12,14 @@ class UserInfoScreen extends StatefulWidget {
 }
 
 class _UserInfoScreenState extends State<UserInfoScreen> {
+  List<ReassessElementModel> reassessList = [];
+
   @override
   void initState() {
     super.initState();
     Provider.of<UserManageProvider>(context, listen: false).refreshSession();
+    Provider.of<UserManageProvider>(context, listen: false)
+        .refreshReassessList();
   }
 
   @override
@@ -22,26 +28,50 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       appBar: AppBar(
         title: const Text('프로필'),
       ),
-      body: Consumer<UserManageProvider>(
-        builder: (context, userManageProvider, child) {
-          String academicNumber = userManageProvider.academicNumber;
-          String password = userManageProvider.password;
-          String studentNumber = userManageProvider.studentNumber;
-          String studentName = userManageProvider.studentName;
-          String session = userManageProvider.session;
+      body: Column(
+        children: [
+          Consumer<UserManageProvider>(
+            builder: (context, userManageProvider, child) {
+              String academicNumber = userManageProvider.academicNumber;
+              String password = userManageProvider.password;
+              String studentNumber = userManageProvider.studentNumber;
+              String studentName = userManageProvider.studentName;
+              String session = userManageProvider.session;
+              List<ReassessElementModel> reassessList =
+                  userManageProvider.reassessList;
 
-          return Center(
-            child: Column(
-              children: [
-                Text(academicNumber),
-                Text(password),
-                Text(studentNumber),
-                Text(studentName),
-                Text(session),
-              ],
-            ),
-          );
-        },
+              return Center(
+                child: Column(
+                  children: [
+                    Text(academicNumber),
+                    Text(password),
+                    Text(studentNumber),
+                    Text(studentName),
+                    Text(session),
+                    // Display reassessList using ListView.builder
+                    SizedBox(
+                      height: 500, // Adjust the height as needed
+                      child: ListView.builder(
+                        itemCount: reassessList.length,
+                        itemBuilder: (context, index) {
+                          ReassessElementModel reassessElement =
+                              reassessList[index];
+                          return ListTile(
+                            title: Text(reassessElement.name),
+                            subtitle: Text(
+                              'Count: ${reassessElement.count}, Total: ${reassessElement.total}',
+                            ),
+                            // Customize the appearance as needed
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
