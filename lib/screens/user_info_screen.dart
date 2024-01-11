@@ -19,12 +19,12 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   void initState() {
     super.initState();
     Provider.of<UserManageProvider>(context, listen: false).refreshSession();
+    Provider.of<UserManageProvider>(context, listen: false)
+        .refreshReassessList();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<UserManageProvider>(context, listen: false)
-        .refreshReassessList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('프로필'),
@@ -49,19 +49,25 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                     Text(studentNumber),
                     Text(studentName),
                     Text(session),
-                    // Display reassessList using ListView.builder
                     SizedBox(
-                      height: 500, // Adjust the height as needed
+                      height: 300,
                       child: ListView.builder(
                         itemCount: reassessList.length,
                         itemBuilder: (context, index) {
                           ReassessElementModel reassessElement =
                               reassessList[index];
+                          bool isSatisfied = reassessElement.isSatisfied();
                           return ListTile(
                             title: Text(reassessElement.name),
-                            subtitle: Text(
-                              'Count: ${reassessElement.count}, Total: ${reassessElement.total}',
-                            ),
+                            subtitle: isSatisfied
+                                ? Text(
+                                    '${reassessElement.count}/${reassessElement.total}',
+                                    style: const TextStyle(color: Colors.blue),
+                                  )
+                                : Text(
+                                    '${reassessElement.count}/${reassessElement.total}',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
                             // Customize the appearance as needed
                           );
                         },

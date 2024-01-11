@@ -1,7 +1,9 @@
+import 'package:cbhsapp/provider/user_manage_provider.dart';
 import 'package:cbhsapp/screens/meal_screen.dart';
 import 'package:cbhsapp/screens/qr_screen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +13,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<UserManageProvider>(context, listen: false)
+        .refreshReassessList();
+  }
+
   int _selectedPage = 0;
   static final List<Widget> _pages = <Widget>[
     const QrCodeScreen(),
