@@ -1,5 +1,6 @@
 import 'package:cbhsapp/provider/user_manage_provider.dart';
 import 'package:cbhsapp/screens/meal_screen.dart';
+import 'package:cbhsapp/screens/overnight_screen.dart';
 import 'package:cbhsapp/screens/qr_screen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _pages = <Widget>[
     const QrCodeScreen(),
     const MealScreen(),
+    const OverNightScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: '입출입 QR코드'),
           BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: '학사 식단'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.nights_stay_rounded), label: '외박 신청'),
         ],
         currentIndex: _selectedPage,
         type: BottomNavigationBarType.fixed,
