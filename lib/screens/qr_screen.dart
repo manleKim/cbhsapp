@@ -28,10 +28,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UserInfoScreen()));
+                Navigator.pushNamed(context, '/userInfo');
               },
               icon: const Icon(Icons.account_circle_outlined)),
         ],

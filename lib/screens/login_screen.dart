@@ -1,6 +1,5 @@
 import 'package:cbhsapp/provider/user_manage_provider.dart';
 import 'package:cbhsapp/provider/user_provider.dart';
-import 'package:cbhsapp/screens/home_screen.dart';
 import 'package:cbhsapp/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -91,8 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
         secureStorage.write(key: 'academicNumber', value: academicNumber);
         secureStorage.write(key: 'password', value: password);
       }
-      Navigator.push(currentContext,
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.pushNamed(currentContext, '/home');
       _academicNumberController.clear();
       _passwordController.clear();
     } catch (e) {

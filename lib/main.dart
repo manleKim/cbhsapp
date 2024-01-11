@@ -3,6 +3,7 @@ import 'package:cbhsapp/provider/user_manage_provider.dart';
 import 'package:cbhsapp/provider/user_provider.dart';
 import 'package:cbhsapp/screens/home_screen.dart';
 import 'package:cbhsapp/screens/login_screen.dart';
+import 'package:cbhsapp/screens/user_info_screen.dart';
 import 'package:cbhsapp/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,7 +37,14 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColor.main),
           useMaterial3: true,
         ),
-        home: const SplashScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/home': (context) => const HomeScreen(),
+          '/userInfo': (context) => const UserInfoScreen(),
+        },
+        //home: const SplashScreen(),
       ),
     );
   }
