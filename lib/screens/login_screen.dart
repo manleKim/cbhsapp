@@ -3,6 +3,7 @@ import 'package:cbhsapp/provider/user_provider.dart';
 import 'package:cbhsapp/screens/home_screen.dart';
 import 'package:cbhsapp/services/login_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _academicNumberController =
       TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _autoLogin = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +37,31 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             TextField(
               controller: _academicNumberController,
-              decoration: const InputDecoration(labelText: 'Academic Number'),
+              decoration: const InputDecoration(labelText: '학사번호'),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: '비밀번호'),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Text('자동로그인'),
+                Checkbox(
+                  value: _autoLogin,
+                  onChanged: (value) {
+                    setState(() {
+                      _autoLogin = value!;
+                    });
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                // Replace this with your login logic
                 _performLogin();
               },
               child: const Text('Login'),
@@ -65,6 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
           .read<UserManageProvider>()
           .setUser(academicNumber, password);
       currentContext.read<UserManageProvider>().getStudentInfo();
+      if (_autoLogin) {
+        const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+        secureStorage.write(key: 'academicNumber', value: academicNumber);
+        secureStorage.write(key: 'password', value: password);
+      }
       Navigator.push(currentContext,
           MaterialPageRoute(builder: (context) => const HomeScreen()));
       _academicNumberController.clear();

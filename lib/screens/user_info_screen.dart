@@ -1,7 +1,8 @@
 import 'package:cbhsapp/models/reassess_element_model.dart';
 import 'package:cbhsapp/provider/user_manage_provider.dart';
-import 'package:cbhsapp/services/dormitory_service.dart';
+import 'package:cbhsapp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 class UserInfoScreen extends StatefulWidget {
@@ -73,7 +74,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
+                const FlutterSecureStorage storage = FlutterSecureStorage();
+                storage.delete(key: 'academicNumber');
+                storage.delete(key: 'password');
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                    (route) => false);
               },
               child: const Text('로그아웃')),
         ],
