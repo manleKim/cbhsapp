@@ -12,10 +12,13 @@ class QrCodeScreen extends StatefulWidget {
 }
 
 class _QrCodeScreenState extends State<QrCodeScreen> {
+  DateTime lastUpdateDateTime = DateTime.now();
+
   @override
   void initState() {
     super.initState();
     Provider.of<UserProvider>(context, listen: false).refreshQRdata();
+    lastUpdateDateTime = DateTime.now();
   }
 
   @override
@@ -46,6 +49,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   size: 300,
                 ),
                 Text(qrData),
+                Text(lastUpdateDateTime.toString()),
                 ElevatedButton(
                   onPressed: () {
                     userProvider.refreshQRdata();
