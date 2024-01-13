@@ -1,6 +1,6 @@
 class ReassessElementModel {
   final String name;
-  final int count;
+  int count;
   final int total;
 
   ReassessElementModel({
@@ -12,5 +12,9 @@ class ReassessElementModel {
   bool isSatisfied() {
     //횟수를 다 채웠는가
     return count / total >= 1;
+  }
+
+  void countUp(int count) {
+    this.count += count;
   }
 }
